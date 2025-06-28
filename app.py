@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 import os
 
 app = Flask(__name__)
-model = WhisperModel("medium", compute_type="int8")
+model = WhisperModel("large", compute_type="int8")
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
