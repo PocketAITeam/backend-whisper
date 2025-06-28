@@ -3,14 +3,14 @@ from flask import Flask, request, jsonify
 import os
 
 app = Flask(__name__)
-model = WhisperModel("medium", compute_type="int8")
+model = WhisperModel("large", compute_type="int8")
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
     if "audio" not in request.files:
         return jsonify({"success": False, "message": "No audio file provided"}), 400
 
-    audio_file = request.files["aaudio"]
+    audio_file = request.files["audio"]
     audio_path = os.path.join("temp_audio", audio_file.filename)
     audio_file.save(audio_path)
 
