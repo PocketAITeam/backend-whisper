@@ -1,10 +1,9 @@
-# whisper_service.py
-import whisper
+from faster_whisper import WhisperModel
 from flask import Flask, request, jsonify
 import os
 
 app = Flask(__name__)
-model = whisper.load_model("medium")  # Load the Whisper model
+model = WhisperModel("large", compute_type="int8")
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
@@ -16,9 +15,15 @@ def transcribe():
     audio_file.save(audio_path)
 
     try:
-        result = model.transcribe(audio_path, language="ar")
-        text = result["text"]
-        return jsonify({"success": True, "text": text})
+        segments, info = model.transcribe(audio_path, language="ar")
+        text = "".join([segment.text for segment in segments])
+
+        return jsonify({
+            "success": True,
+            "text": text,
+            "language": info.language,
+            "confidence": info.language_probability
+        })
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
     finally:
