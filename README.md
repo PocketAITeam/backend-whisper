@@ -1,92 +1,120 @@
-# 🧠 backend-whisper
+# 🎙️ PocketAI Whisper Server - Voice-to-Text Microservice
 
-A lightweight API server that uses [OpenAI's Whisper](https://github.com/openai/whisper) to transcribe audio files into text using speech-to-text AI.
-
-## 🚀 Features
-
--   🔊 Accepts audio files via HTTP POST
--   📄 Returns transcribed text
--   🧠 Powered by OpenAI Whisper (locally)
--   🛠️ Easy to integrate with any backend (like Node.js)
--   🌐 Ready for production (non-Docker setup)
+This is the dedicated microservice that powers the voice-to-text functionality of PocketAI using OpenAI's Whisper model.  
+It receives audio files and returns the transcribed Arabic text.
 
 ---
 
-## ⚙️ Requirements
+## 📦 Features
 
--   Python 3.9+
--   `ffmpeg` installed and accessible via terminal
--   Whisper library
+-   🎧 Accepts `.mp3`, `.wav`, `.m4a`, `.webm`, etc.
+-   🤖 Transcribes Arabic voice using OpenAI Whisper
+-   🚀 RESTful API with Flask
+-   🔒 Lightweight and easy to deploy
+-   🛠️ Ready for production with Python virtual environment support
 
 ---
 
-## 📦 Installation
+## ⚛️ Getting Started
+
+### 📁 Clone the repo
 
 ```bash
-# Clone the repository
 git clone https://github.com/your-username/backend-whisper.git
 cd backend-whisper
+```
 
-# Create a virtual environment
+### 🐍 Create a virtual environment (recommended)
+
+```bash
 python -m venv venv
-venv\Scripts\activate  # Windows
+venv\Scripts\activate  # On Windows
+source venv/bin/activate  # On macOS/Linux
+```
 
-# Install dependencies
+### 📦 Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## ▶️ Run the server
+## 🚀 Running the Server
 
 ```bash
 python whisper_service.py
 ```
 
-The server will start on port **5001** by default.
+The server will start on `http://localhost:5001` by default.
 
 ---
 
-## 🧪 Example Request (Using Postman or Node.js)
-
-**Endpoint:**
+## 📂 Project Structure
 
 ```
-POST http://localhost:5001/transcribe
+backend-whisper/
+│
+├── whisper_service.py      # Flask app that handles audio uploads and transcription
+├── requirements.txt        # Project dependencies
+└── README.md               # Project documentation
 ```
 
-**Form-Data:**
+---
 
--   `audio`: your audio file (e.g., `.mp3`, `.wav`, `.m4a`)
+## 📡 API Usage
 
-**Response:**
+### 📤 POST `/transcribe`
+
+**Description**: Upload an audio file and receive the transcribed text.
+
+#### 🔸 Headers:
+
+```
+Content-Type: multipart/form-data
+```
+
+#### 🔸 Body (form-data):
+
+-   `file`: the audio file (e.g. `voice.mp3`)
+
+#### 🔸 Example cURL:
+
+```bash
+curl -X POST http://localhost:5001/transcribe \
+  -F "file=@path/to/your/audio.mp3"
+```
+
+#### 🔸 Example Response:
 
 ```json
 {
-    "transcription": "This is the transcribed text."
+    "text": "ده مثال على كلام بالعربي"
 }
 ```
 
 ---
 
-## 📁 Project Structure
+## ⚙️ Tech Stack
 
-```
-backend-whisper/
-│
-├── whisper_service.py         # Flask API server
-├── requirements.txt           # Python dependencies
-└── README.md                  # You're reading it!
-```
+-   🐍 Python + Flask
+-   🧠 OpenAI Whisper
+-   🎧 ffmpeg (for audio handling)
+
+---
+
+## 📝 Notes
+
+-   Whisper model used: `base` (can be changed to `small`, `medium`, or `large`)
+-   Default language: Arabic (`--language ar`)
+-   Ensure `ffmpeg` is installed and in your system path.
 
 ---
 
 ## ✨ Author
 
-Made with ❤️ by Mohamed Tarek
+Made with ❤️ by Mohamed Tarek & PocketAITeam
 
 ---
 
-## 📝 License
-
-MIT
+> For any issues, feel free to open an issue or submit a pull request.
