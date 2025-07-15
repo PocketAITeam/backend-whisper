@@ -1,5 +1,5 @@
-fastapi
-uvicorn
-python-multipart
-flask
-faster-whisper
+faster-whisper==1.0.1
+flask==3.0.3
+torch==2.1.2
+numpy>=1.23.5
+ffmpeg-python==0.2.0
