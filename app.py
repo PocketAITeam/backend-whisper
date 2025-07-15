@@ -6,7 +6,7 @@ import uuid
 app = Flask(__name__)
 
 # Load model once at startup
-model = WhisperModel("large", compute_type="int8")
+model = WhisperModel("medium", compute_type="int8")
 
 # Temp directory for audio files
 UPLOAD_FOLDER = "temp_audio"
