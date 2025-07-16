@@ -8,7 +8,7 @@ app = Flask(__name__)
 os.makedirs("temp_audio", exist_ok=True)
 
 # Load Whisper model
-model = WhisperModel("medium", compute_type="int8")
+model = WhisperModel("small", compute_type="int8")
 
 # ✅ Function to compress audio
 def compress_audio(input_path):
